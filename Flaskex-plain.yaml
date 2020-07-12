@@ -1,0 +1,91 @@
+# ===============================================================================
+#  NODES: CENTOS
+# ===============================================================================
+
+- hosts: centos
+
+  tasks:
+    - name: Install python
+      yum:
+        name:
+          - python3
+          - python3-pip
+    # become: true
+    # become_user: root
+
+    - name: Install pip modules
+      pip:
+        name:
+          - Flask
+          - WTForms
+          - SQLAlchemy
+          - bcrypt
+          - requests
+          - flask-heroku
+          - gunicorn
+        executable: pip3
+
+    - name: Download the Flaskex app
+      git:
+        repo: 'https://github.com/anfederico/Flaskex'
+        dest: ~/simbirsoft/task2/Flaskex
+
+  # В задании этого не было
+
+  # - name: Get running Flaskex processes
+  #   shell: "ps -ax | grep -v grep | grep python3 | grep /simbirsoft/task2/Flaskex/app.py | awk '{print $1}'"
+  #   register: flaskex_processes
+
+  # - name: Stop running Flaskex processes
+  #   shell: "kill {{ item }}"
+  #   with_items: "{{ flaskex_processes.stdout_lines }}"
+
+  # - name: Run Flaskex
+  #   command: python3 app.py &
+  #   args:
+  #     chdir: '~/simbirsoft/task2/Flaskex/'
+
+# ===============================================================================
+#  NODES: UBUNTU
+# ===============================================================================
+
+- hosts: ubuntu
+  tasks:
+    - name: Install python
+      apt:
+        name:
+          - python3
+          - python3-pip
+      become: true
+      become_user: root
+
+    - name: Install pip modules
+      pip:
+        name:
+          - Flask
+          - WTForms
+          - SQLAlchemy
+          - bcrypt
+          - requests
+          - flask-heroku
+          - gunicorn
+        executable: pip3
+
+    - name: Download the Flaskex app
+      git:
+        repo: 'https://github.com/anfederico/Flaskex'
+        dest: ~/simbirsoft/task2/Flaskex
+
+  # В задании этого не было
+  # - name: Get running Flaskex processes
+  #   shell: "ps -ax | grep -v grep | grep python3 | grep /simbirsoft/task2/Flaskex/app.py | awk '{print $1}'"
+  #   register: flaskex_processes
+
+  # - name: Stop running Flaskex processes
+  #   shell: "kill {{ item }}"
+  #   with_items: "{{ flaskex_processes.stdout_lines }}"
+
+  # - name: Run Flaskex
+  #   command: python3 app.py &
+  #   args:
+  #     chdir: '~/simbirsoft/task2/Flaskex/'

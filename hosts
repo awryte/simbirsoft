@@ -1,0 +1,5 @@
+[centos]
+nodes.centos.01    ansible_ssh_host=192.168.56.101    ansible_ssh_user=root
+
+[ubuntu]
+nodes.ubuntu.01    ansible_ssh_host=192.168.99.100    ansible_ssh_user=osboxes
